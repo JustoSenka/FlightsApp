@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Flights</string>
+
+    <!-- Strings related to main screen -->
+    <string name="action_log_in">Log in</string>
+    <string name="action_register">Register</string>
+    <string name="action_view_offers">View offers</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+
+    <!-- Strings related to register -->
+    <string name="prompt_first_name">First name</string>
+    <string name="prompt_last_name">Last name</string>
+    <string name="prompt_birth_date">Birth date (yyyy-MM-dd)</string>
+    <string name="prompt_repeat">Repeat password</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+</resources>
