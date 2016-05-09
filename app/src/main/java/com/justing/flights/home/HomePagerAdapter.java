@@ -1,31 +1,21 @@
-package com.justing.flights.fragments;
+package com.justing.flights.home;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.justing.flights.HomeActivity;
-
 /**
  * Created by JustInG on 5/9/2016.
  */
 public class HomePagerAdapter extends FragmentPagerAdapter {
-    private static HomePagerAdapter Instance;
-    public static HomePagerAdapter getInstance() {
-        //if (Instance == null) throw new Exception("FragmentManager first must be sent.");
-        return Instance;
-    }
-    public static HomePagerAdapter getInstance(FragmentManager fm) {
-        if (Instance == null) Instance = new HomePagerAdapter(fm);
-        return Instance;
-    }
-    private HomePagerAdapter(FragmentManager fm) { super(fm); }
+    public HomePagerAdapter(FragmentManager fm) { super(fm); }
 
     @Override
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        return HomeActivity.PlaceholderFragment.newInstance(position + 1);
+        //if (position == 1) return HomeActivity.Placeholder2Fragment.newInstance(position + 1);
+        return ConsultantsFragment.newInstance("ah","ok");
     }
 
     @Override

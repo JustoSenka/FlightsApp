@@ -1,45 +1,23 @@
-package com.justing.flights;
+package com.justing.flights.core;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
 
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.Manifest.permission.READ_CONTACTS;
+import com.justing.flights.home.HomeActivity;
+import com.justing.flights.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final int REQUEST_READ_CONTACTS = 0;
-
-    // UI references.
     private EditText mEmailView;
     private EditText mPasswordView;
 
@@ -69,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                 attemptLogin();
             }
         });
+
     }
 
     /**
@@ -76,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
+
     private void attemptLogin() {
         // Reset errors.
         mEmailView.setError(null);
@@ -113,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             overridePendingTransition(R.anim.activity_slide_in, R.anim.activity_slide_out);
         }
     }
+
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic

@@ -1,10 +1,13 @@
-package com.justing.flights;
+package com.justing.flights.core;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.justing.flights.home.HomeActivity;
+import com.justing.flights.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
