@@ -20,9 +20,9 @@
     <string name="prompt_last_name">Last name</string>
     <string name="prompt_birth_date">Birth date (yyyy-MM-dd)</string>
     <string name="prompt_repeat">Repeat password</string>
+    <string name="error_wrong_format">The date is written in wrong format</string>
+    <string name="error_pass_no_match">The passwords are not the same</string>
+
+
     <string name="title_activity_home">HomeActivity</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-
-
 </resources>

@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.justing.flights.R;
 import com.justing.flights.adapters.TwoColumnsAdapter;
 import com.justing.flights.commons.StringTuple;
+import com.justing.flights.objects.Flight;
 
 
 public class ConsultantsFragment extends Fragment {
