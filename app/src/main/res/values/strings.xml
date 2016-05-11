@@ -23,6 +23,14 @@
     <string name="error_wrong_format">The date is written in wrong format</string>
     <string name="error_pass_no_match">The passwords are not the same</string>
 
+    <!-- Strings related to flights -->
+    <string name="flight_duration">Duration</string>
+    <string name="flight_departure">Departure</string>
+    <string name="flight_arrival">Arrival</string>
+    <string name="flight_from">From</string>
+    <string name="flight_to">To</string>
+
 
     <string name="title_activity_home">HomeActivity</string>
+
 </resources>

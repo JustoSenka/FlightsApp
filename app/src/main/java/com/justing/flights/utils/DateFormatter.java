@@ -25,11 +25,16 @@ public class DateFormatter {
      */
 
     private static DateFormat toYear = new SimpleDateFormat("yyyy-MM-dd");
+    private static DateFormat toMonth = new SimpleDateFormat("MM-dd HH:mm");
     private static DateFormat toTime = new SimpleDateFormat("HH:mm");
     private static DateFormat toFull = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     public static String getYear(Date date){
         return toYear.format(date);
+    }
+
+    public static String getMonth(Date date){
+        return toMonth.format(date);
     }
 
     public static String getTime(Date date){
@@ -42,7 +47,11 @@ public class DateFormatter {
 
     public static Date fromYear(String date) throws ParseException {
         return toYear.parse(date);
-}
+    }
+
+    public static Date fromMonth(String date) throws ParseException {
+        return toMonth.parse(date);
+    }
 
     public static Date fromTime(String date) throws ParseException {
         return toTime.parse(date);

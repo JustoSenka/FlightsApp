@@ -1,8 +1,11 @@
 package com.justing.flights.home;
 
+import android.app.Activity;
+import android.app.Application;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.widget.Toast;
 
 /**
  * Created by JustInG on 5/9/2016.
@@ -12,15 +15,19 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
-        //if (position == 1) return HomeActivity.Placeholder2Fragment.newInstance(position + 1);
-        return ConsultantsFragment.newInstance("ah","ok");
+        switch (position) {
+            case 0:
+                return ConsultantsFragment.newInstance();
+            case 1:
+                return MyFlightsFragment.newInstance();
+            case 2:
+                return ConsultantsFragment.newInstance();
+        }
+        return MyFlightsFragment.newInstance();
     }
 
     @Override
     public int getCount() {
-        // Show 3 total pages.
         return 3;
     }
 
@@ -28,11 +35,11 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "SECTION 1";
+                return "Search";
             case 1:
-                return "SECTION 2";
+                return "My Flights";
             case 2:
-                return "SECTION 3";
+                return "Consultants";
         }
         return null;
     }

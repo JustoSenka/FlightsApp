@@ -11,11 +11,11 @@ import com.justing.flights.R;
 import com.justing.flights.commons.StringTuple;
 import com.justing.flights.commons.Tuple;
 
-public class TwoColumnsAdapter extends ArrayAdapter<StringTuple> {
+public class TupleArrayAdapter extends ArrayAdapter<StringTuple> {
 
     private final Context context;
 
-    public TwoColumnsAdapter(Context context, int layout, StringTuple[] values) {
+    public TupleArrayAdapter(Context context, int layout, StringTuple[] values) {
         super(context, layout, values);
         this.context = context;
     }
@@ -25,13 +25,13 @@ public class TwoColumnsAdapter extends ArrayAdapter<StringTuple> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.list_two_columns, parent, false);
 
-        StringTuple elem = getItem(position);
+        StringTuple e = getItem(position);
 
         TextView left = (TextView) rowView.findViewById(R.id.list_left);
         TextView right = (TextView) rowView.findViewById(R.id.list_right);
 
-        left.setText(elem.left);
-        right.setText(elem.right);
+        left.setText(e.left);
+        right.setText(e.right);
 
         return rowView;
     }

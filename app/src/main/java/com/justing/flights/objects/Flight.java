@@ -9,13 +9,14 @@ import java.util.Date;
 public class Flight {
 
     private Date departureTime, arrivalTime, duration;
-    private String cityFrom, cityTo, company;
+    private String cityFrom, cityTo;
+    private Company company;
     private int ticketPrice;
 
-    public Flight(Date departureTime, Date arrivalTime, String cityFrom, String cityTo, String company){
+    public Flight(Date departureTime, Date arrivalTime, String cityFrom, String cityTo, Company company){
         this(departureTime, arrivalTime, cityFrom, cityTo, company, 0);
     }
-    public Flight(Date departureTime, Date arrivalTime, String cityFrom, String cityTo, String company, int ticketPricece) {
+    public Flight(Date departureTime, Date arrivalTime, String cityFrom, String cityTo, Company company, int ticketPricece) {
 
         this.ticketPrice = ticketPricece;
         this.departureTime = departureTime;
@@ -23,7 +24,10 @@ public class Flight {
         this.cityFrom = cityFrom;
         this.cityTo = cityTo;
         this.company = company;
-        this.duration = new Date(arrivalTime.getTime() - departureTime.getTime());
+
+        if (arrivalTime != null && departureTime != null) {
+            this.duration = new Date(arrivalTime.getTime() - departureTime.getTime());
+        }
     }
 
     public Date getDepartureTime() {
@@ -42,7 +46,7 @@ public class Flight {
         return cityTo;
     }
 
-    public String getCompany() {
+    public Company getCompany() {
         return company;
     }
 
