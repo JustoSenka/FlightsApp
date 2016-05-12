@@ -30,7 +30,15 @@
     <string name="flight_from">From</string>
     <string name="flight_to">To</string>
 
+    <!-- Strings related to search -->
+    <string name="search_select_date">Select date bounds to search</string>
+    <string name="search_select_city">Select city to search</string>
+    <string name="search_min">Minimum bound</string>
+    <string name="search_max">Maximum bound</string>
+    <string name="any">&lt;Any&gt;</string>
 
     <string name="title_activity_home">HomeActivity</string>
+
+
 
 </resources>

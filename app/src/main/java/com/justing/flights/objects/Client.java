@@ -1,6 +1,10 @@
 package com.justing.flights.objects;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * Created by JustInG on 5/10/2016.
@@ -9,6 +13,7 @@ public class Client {
 
     private String email, firstName, lastName, password;
     private Date birthDate;
+    private SortedSet<Flight> myFlights = new TreeSet<Flight>();
 
     public Client(String email, String firstName, String lastName, String password, Date birthDate) {
         this.email = email;
@@ -58,5 +63,9 @@ public class Client {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public SortedSet<Flight> getMyFlights() {
+        return myFlights;
     }
 }

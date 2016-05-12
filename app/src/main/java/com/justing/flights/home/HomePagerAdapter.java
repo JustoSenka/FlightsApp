@@ -17,7 +17,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return ConsultantsFragment.newInstance();
+                return SearchFragment.newInstance();
             case 1:
                 return MyFlightsFragment.newInstance();
             case 2:

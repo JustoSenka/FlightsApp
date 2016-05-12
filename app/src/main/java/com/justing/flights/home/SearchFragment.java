@@ -4,10 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.TypedArrayUtils;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import com.justing.flights.R;
 import com.justing.flights.adapters.FlightsArrayAdapter;
@@ -16,19 +21,22 @@ import com.justing.flights.commons.StringTuple;
 import com.justing.flights.objects.AppData;
 import com.justing.flights.objects.Company;
 import com.justing.flights.objects.Flight;
+import com.justing.flights.utils.ArrayUtils;
+import com.justing.flights.utils.DateFormatter;
 
+import java.lang.reflect.Array;
 import java.util.Date;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class MyFlightsFragment extends Fragment {
+public class SearchFragment extends Fragment {
 
     private Context context;
     private Listener mListener;
 
-    public MyFlightsFragment() {}
-    public static MyFlightsFragment newInstance() {
-        MyFlightsFragment fragment = new MyFlightsFragment();
+    public SearchFragment() {}
+    public static SearchFragment newInstance() {
+        SearchFragment fragment = new SearchFragment();
         //Bundle args = new Bundle();
         // args.putString(ARG_PARAM1, param1);
         //fragment.setArguments(args);
@@ -45,20 +53,20 @@ public class MyFlightsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_flights, container, false);
-        ListView lv = (ListView) view.findViewById(R.id.home_flights_list);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        Spinner spinFrom = (Spinner) view.findViewById(R.id.city_from);
+        Spinner spinTo = (Spinner) view.findViewById(R.id.city_to);
 
-        Flight[] flights = new Flight[0];
-        flights = AppData.getInstance().getAvailableFlights().toArray(flights);
+        ((Button) view.findViewById(R.id.date_picker_from)).setText(Html.fromHtml("<b><big>" + DateFormatter.getYear(new Date()) + "</big></b>" +  "<br />" +
+                "<small>" + getString(R.string.search_min) + "</small>" + "<br />"));
+        ((Button)view. findViewById(R.id.date_picker_till)).setText(Html.fromHtml("<b><big>" + DateFormatter.getYear(new Date()) + "</big></b>" +  "<br />" +
+                "<small>" + getString(R.string.search_max) + "</small>" + "<br />"));
 
-        final FlightsArrayAdapter adapter = new FlightsArrayAdapter(context, android.R.layout.simple_list_item_1, flights);
-        lv.setAdapter(adapter);
-/*
-        ViewGroup.LayoutParams params = lv.getLayoutParams();
-        params.height -= 1;
-        lv.setLayoutParams(params);
-        lv.requestLayout();
-*/
+        String[] cities = ArrayUtils.concat(new String[]{getString(R.string.any)}, AppData.getInstance().getKnownCities());
+
+        spinFrom.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, cities));
+        spinTo.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, cities));
+
         return view;
     }
 

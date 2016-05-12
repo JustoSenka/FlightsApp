@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Created by JustInG on 5/10/2016.
  */
-public class Flight {
+public class Flight implements Comparable<Flight> {
 
     private Date departureTime, arrivalTime, duration;
     private String cityFrom, cityTo;
@@ -60,5 +60,38 @@ public class Flight {
 
     public void setTicketPrice(int ticketPrice) {
         this.ticketPrice = ticketPrice;
+    }
+
+    @Override
+    public int compareTo(Flight another) {
+        if (this.equals(another)) return 0;
+        return (int) (this.departureTime.getTime() - another.getDepartureTime().getTime() + 1);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Flight flight = (Flight) o;
+
+        if (ticketPrice != flight.ticketPrice) return false;
+        if (!departureTime.equals(flight.departureTime)) return false;
+        if (!arrivalTime.equals(flight.arrivalTime)) return false;
+        if (!cityFrom.equals(flight.cityFrom)) return false;
+        if (!cityTo.equals(flight.cityTo)) return false;
+        return company == flight.company;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = departureTime.hashCode();
+        result = 31 * result + arrivalTime.hashCode();
+        result = 31 * result + cityFrom.hashCode();
+        result = 31 * result + cityTo.hashCode();
+        result = 31 * result + company.hashCode();
+        result = 31 * result + ticketPrice;
+        return result;
     }
 }
