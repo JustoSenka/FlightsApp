@@ -36,6 +36,7 @@
     <string name="search_min">Minimum bound</string>
     <string name="search_max">Maximum bound</string>
     <string name="any">&lt;Any&gt;</string>
+    <string name="search">Search</string>
 
     <string name="title_activity_home">HomeActivity</string>
 
