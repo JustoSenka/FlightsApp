@@ -38,6 +38,11 @@
     <string name="any">&lt;Any&gt;</string>
     <string name="search">Search</string>
 
+    <!-- Strings related to flight info dialog/fragment -->
+    <string name="flight_info">Flight info</string>
+    <string name="price">Price: %1$s€</string>
+    <string name="purchase">Purchase</string>
+
     <string name="title_activity_home">HomeActivity</string>
 
 

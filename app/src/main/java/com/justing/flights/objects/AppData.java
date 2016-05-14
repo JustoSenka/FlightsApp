@@ -1,5 +1,9 @@
 package com.justing.flights.objects;
 
+import com.android.internal.util.Predicate;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -15,10 +19,30 @@ public class AppData {
     private AppData() {}
 
     private final SortedSet<Flight> availableFlights = new TreeSet<Flight>();
+    private User currentUser;
 
     public SortedSet<Flight> getAvailableFlights() {
         return availableFlights;
     }
+
+    public Flight getFlightById(long id){
+        for (Flight f : availableFlights) {
+            if (f.getId() == id) return f;
+        }
+        return null;
+    }
+
+    public SortedSet<Flight> getFilteredFlights(Predicate<Flight> predicate) {
+        SortedSet<Flight> filtered = new TreeSet<Flight>();
+
+        for (Flight f : availableFlights){
+            if (predicate.apply(f)){
+                filtered.add(f);
+            }
+        }
+        return filtered;
+    }
+
     public String[] getKnownCities(){
         String[] arr = new String[0];
         arr = getKnownCitiesSet().toArray(arr);
@@ -33,5 +57,13 @@ public class AppData {
             citySet.add(f.getCityTo());
         }
         return citySet;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 }

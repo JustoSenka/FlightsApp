@@ -1,6 +1,6 @@
 package com.justing.flights.objects;
-import java.sql.Time;
-import java.util.Calendar;
+import com.justing.flights.commons.Time;
+
 import java.util.Date;
 
 /**
@@ -8,7 +8,11 @@ import java.util.Date;
  */
 public class Flight implements Comparable<Flight> {
 
-    private Date departureTime, arrivalTime, duration;
+    private static long ID = 0;
+
+    private long id;
+    private Date departureTime, arrivalTime;
+    private Time duration;
     private String cityFrom, cityTo;
     private Company company;
     private int ticketPrice;
@@ -18,6 +22,7 @@ public class Flight implements Comparable<Flight> {
     }
     public Flight(Date departureTime, Date arrivalTime, String cityFrom, String cityTo, Company company, int ticketPricece) {
 
+        this.id = ID++;
         this.ticketPrice = ticketPricece;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
@@ -26,7 +31,7 @@ public class Flight implements Comparable<Flight> {
         this.company = company;
 
         if (arrivalTime != null && departureTime != null) {
-            this.duration = new Date(arrivalTime.getTime() - departureTime.getTime());
+            this.duration = new Time(arrivalTime.getTime() - departureTime.getTime());
         }
     }
 
@@ -50,8 +55,12 @@ public class Flight implements Comparable<Flight> {
         return company;
     }
 
-    public Date getDuration() {
+    public Time getDuration() {
         return duration;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public int getTicketPrice() {

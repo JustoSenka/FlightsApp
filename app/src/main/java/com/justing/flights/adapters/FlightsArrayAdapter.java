@@ -31,7 +31,7 @@ public class FlightsArrayAdapter extends ArrayAdapter<Flight> {
 
         ((TextView) rowView.findViewById(R.id.flight_departure)).setText(context.getString(R.string.flight_departure) + ": " + DateFormatter.getMonth(e.getDepartureTime()));
         ((TextView) rowView.findViewById(R.id.flight_arrival)).setText(context.getString(R.string.flight_arrival) + ": " + DateFormatter.getMonth(e.getArrivalTime()));
-        ((TextView) rowView.findViewById(R.id.flight_duration)).setText(context.getString(R.string.flight_duration) + ": " + DateFormatter.getTime(e.getDuration()) + ", ");
+        ((TextView) rowView.findViewById(R.id.flight_duration)).setText(context.getString(R.string.flight_duration) + ": " + e.getDuration().toString() + ", ");
         ((TextView) rowView.findViewById(R.id.flight_company)).setText(e.getCompany().name);
         ((TextView) rowView.findViewById(R.id.flight_from)).setText(context.getString(R.string.flight_from) + ": " + e.getCityFrom());
         ((TextView) rowView.findViewById(R.id.flight_to)).setText(context.getString(R.string.flight_to) + ": " + e.getCityTo());

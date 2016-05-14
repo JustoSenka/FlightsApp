@@ -8,6 +8,8 @@ import android.widget.Button;
 
 import com.justing.flights.home.HomeActivity;
 import com.justing.flights.R;
+import com.justing.flights.objects.AppData;
+import com.justing.flights.objects.User;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         viewOffers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: start home activity without login
+                AppData.getInstance().setCurrentUser(new User());
                 startActivity(new Intent(getBaseContext(), HomeActivity.class));
                 overridePendingTransition(R.anim.activity_slide_in, R.anim.activity_slide_out);
             }

@@ -1,5 +1,6 @@
 package com.justing.flights.home;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -10,9 +11,9 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.justing.flights.R;
+import com.justing.flights.core.FlightsActivity;
 import com.justing.flights.objects.AppData;
 import com.justing.flights.objects.Company;
 import com.justing.flights.objects.Flight;
@@ -21,7 +22,9 @@ import com.justing.flights.utils.DateFormatter;
 import java.util.Date;
 import java.util.SortedSet;
 
-public class HomeActivity extends AppCompatActivity implements DatePickerFragment.DateSetListener {
+public class HomeActivity extends AppCompatActivity implements DatePickerFragment.DateSetListener,
+    SearchFragment.Listener
+{
 
     private static String DATE_PICKER_KEY = "DATE_PICKER_KEY";
 
@@ -39,7 +42,6 @@ public class HomeActivity extends AppCompatActivity implements DatePickerFragmen
         setSupportActionBar(toolbar);
 
         mSectionsPagerAdapter = new HomePagerAdapter(getSupportFragmentManager());
-
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -78,7 +80,12 @@ public class HomeActivity extends AppCompatActivity implements DatePickerFragmen
         }
     }
 
-
+    @Override
+    public void onSearchButtonClick(Bundle args) {
+        final Intent intent = new Intent(getBaseContext(), FlightsActivity.class);
+        intent.putExtras(args);
+        startActivity(intent);
+    }
 
 
 
