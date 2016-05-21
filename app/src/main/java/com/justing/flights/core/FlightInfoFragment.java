@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import java.util.Date;
 public class FlightInfoFragment extends DialogFragment {
 
     public static String KEY_FLIGHT_ID = "KEY_FLIGHT_ID";
+    public static String KEY_PURCHASE_ENABLED = "KEY_PURCHASE_ENABLED";
 
     private Context context;
     private FlightPurchaseListener mListener;
@@ -39,7 +41,11 @@ public class FlightInfoFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_flight_info, container, false);
         getDialog().setTitle(getString(R.string.flight_info));
 
-        Flight f = AppData.getInstance().getFlightById(getArguments().getLong(KEY_FLIGHT_ID));
+        final Bundle args = getArguments();
+
+        Flight f = AppData.getInstance().getFlightById(args.getLong(KEY_FLIGHT_ID));
+
+        view.findViewById(R.id.info_purchase_button).setEnabled(args.getBoolean(KEY_PURCHASE_ENABLED, false));
 
         ((TextView) view.findViewById(R.id.info_flight_arrival)).setText(getString(R.string.flight_arrival) + ": " + DateFormatter.getFull(f.getArrivalTime()));
         ((TextView) view.findViewById(R.id.info_flight_departure)).setText(getString(R.string.flight_departure) + ": " + DateFormatter.getFull(f.getDepartureTime()));

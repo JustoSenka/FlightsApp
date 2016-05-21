@@ -38,10 +38,18 @@
     <string name="any">&lt;Any&gt;</string>
     <string name="search">Search</string>
 
+    <!-- Info for user -->
+    <string name="info_my_flights">You have %1$s flights booked:</string>
+    <string name="info_my_flights_empty">You do not have any flights booked yet.</string>
+    <string name="info_search_results">Search yielded %1$s flights available:</string>
+    <string name="info_search_results_empty">Your search did not yield any results.</string>
+
     <!-- Strings related to flight info dialog/fragment -->
     <string name="flight_info">Flight info</string>
     <string name="price">Price: %1$s€</string>
     <string name="purchase">Purchase</string>
+
+
 
     <string name="title_activity_home">HomeActivity</string>
 

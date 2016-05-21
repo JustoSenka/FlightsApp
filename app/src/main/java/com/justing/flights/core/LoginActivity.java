@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.justing.flights.home.HomeActivity;
 import com.justing.flights.R;
+import com.justing.flights.social.FacebookController;
+import com.justing.flights.social.GoogleController;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -48,6 +50,20 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
+        ((Button) findViewById(R.id.login_facebook)).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FacebookController.getInstance().promptLogin(getBaseContext());
+            }
+        });
+
+        ((Button) findViewById(R.id.login_google)).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GoogleController.getInstance().promptLogin(getBaseContext());
+            }
+        });
     }
 
     @Override
@@ -55,12 +71,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.activity_slide_back_in, R.anim.activity_slide_back_out);
     }
-
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
 
     private void attemptLogin() {
         // Reset errors.
@@ -87,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (cancel) {
             focusView.requestFocus();
-        } else {
+        } else if (checkCredentials(email, password)) {
             startActivity(new Intent(this, HomeActivity.class));
             overridePendingTransition(R.anim.activity_slide_in, R.anim.activity_slide_out);
         }
@@ -102,10 +112,6 @@ public class LoginActivity extends AppCompatActivity {
     private boolean checkCredentials(String email, String pass){
         // TODO: check the db, return true if success, else false
         return true;
-    }
-
-    private void loadHomeActivity(String userEmail){
-        // TODO: load home activity
     }
 }
 

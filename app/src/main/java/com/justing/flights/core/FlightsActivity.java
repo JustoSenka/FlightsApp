@@ -1,10 +1,12 @@
 package com.justing.flights.core;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.internal.util.Predicate;
@@ -16,6 +18,7 @@ import com.justing.flights.utils.DateFormatter;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.SortedSet;
 
 public class FlightsActivity extends AppCompatActivity {
 
@@ -31,26 +34,56 @@ public class FlightsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flights);
-
-        final ListView lv = (ListView) findViewById(R.id.flights_list);
-
         readSearchArgs(getIntent().getExtras());
 
-        lv.setAdapter(new FlightsArrayAdapter(this, android.R.layout.simple_list_item_1, getFilteredDataWithArgs()));
+        final Flight[] flights = getFilteredDataWithArgs();
+        setInfoLabelText(flights);
+
+        final ListView lv = (ListView) findViewById(R.id.flights_list);
+        lv.setAdapter(new FlightsArrayAdapter(this, android.R.layout.simple_list_item_1, flights));
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 FlightInfoFragment fragment = new FlightInfoFragment();
 
-                long flightId = ((Flight)lv.getAdapter().getItem(position)).getId();
+                final long flightId = ((Flight)lv.getAdapter().getItem(position)).getId();
                 Bundle bundle = new Bundle();
                 bundle.putLong(FlightInfoFragment.KEY_FLIGHT_ID, flightId);
-                fragment.setArguments(bundle);
 
+                if (!isAlreadyBookedFlight(flightId)){
+                    bundle.putBoolean(FlightInfoFragment.KEY_PURCHASE_ENABLED, true);
+                }
+
+                fragment.setArguments(bundle);
                 fragment.show(getSupportFragmentManager(), "flightInfoFragment");
             }
         });
+    }
+
+    private void setInfoLabelText(Flight[] flights) {
+        TextView tv = (TextView) findViewById(R.id.flights_info);
+
+        if (flights.length == 0){
+            tv.setHeight(100);
+            tv.setText(getString(R.string.info_search_results_empty));
+            }
+        else {
+            tv.setText("");
+            tv.setHeight(1);
+        }
+    }
+
+    private boolean isAlreadyBookedFlight(final long flightId){
+
+        SortedSet<Flight> set = AppData.getInstance().getFilteredFlights(new Predicate<Flight>() {
+            @Override
+            public boolean apply(Flight flight) {
+                return flightId == flight.getId();
+            }
+        });
+
+        return set.size() >= 0;
     }
 
     private void readSearchArgs(Bundle args) {
