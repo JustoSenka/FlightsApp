@@ -50,7 +50,6 @@ public class FlightsActivity extends AppCompatActivity implements FlightInfoFrag
                 Bundle bundle = new Bundle();
                 bundle.putLong(FlightInfoFragment.KEY_FLIGHT_ID, flightId);
 
-                Toast.makeText(getBaseContext(), !isAlreadyBookedFlight(flightId) + " " + AppData.getInstance().getCurrentUser().isRegisteredUser(), Toast.LENGTH_SHORT).show();
                 if (!isAlreadyBookedFlight(flightId) && AppData.getInstance().getCurrentUser().isRegisteredUser()){
                     bundle.putBoolean(FlightInfoFragment.KEY_PURCHASE_ENABLED, true);
                 }

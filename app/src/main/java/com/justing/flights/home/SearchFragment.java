@@ -22,7 +22,7 @@ import java.util.Date;
 public class SearchFragment extends Fragment {
 
     private Context context;
-    private Listener mListener;
+    private OnSearchButtonClick mListener;
 
     public SearchFragment() {}
     public static SearchFragment newInstance() {
@@ -84,8 +84,8 @@ public class SearchFragment extends Fragment {
         super.onAttach(context);
         this.context = context;
 
-        if (context instanceof Listener) {
-            mListener = (Listener) context;
+        if (context instanceof OnSearchButtonClick) {
+            mListener = (OnSearchButtonClick) context;
         }
     }
 
@@ -95,7 +95,7 @@ public class SearchFragment extends Fragment {
         mListener = null;
     }
 
-    public interface Listener {
+    public interface OnSearchButtonClick {
         void onSearchButtonClick(Bundle args);
     }
 }
