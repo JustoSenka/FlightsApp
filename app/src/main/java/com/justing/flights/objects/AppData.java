@@ -2,8 +2,6 @@ package com.justing.flights.objects;
 
 import com.android.internal.util.Predicate;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -32,10 +30,14 @@ public class AppData {
         return null;
     }
 
-    public SortedSet<Flight> getFilteredFlights(Predicate<Flight> predicate) {
+    public SortedSet<Flight> getFilteredAvailableFlights(Predicate<Flight> predicate) {
+        return getFilteredFlights(availableFlights, predicate);
+    }
+
+    public SortedSet<Flight> getFilteredFlights(SortedSet<Flight> flights, Predicate<Flight> predicate) {
         SortedSet<Flight> filtered = new TreeSet<Flight>();
 
-        for (Flight f : availableFlights){
+        for (Flight f : flights){
             if (predicate.apply(f)){
                 filtered.add(f);
             }

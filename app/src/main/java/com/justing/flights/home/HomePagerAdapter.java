@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.widget.Toast;
 
+import com.justing.flights.objects.AppData;
+
 /**
  * Created by JustInG on 5/9/2016.
  */
@@ -27,8 +29,17 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
     }
 
     @Override
+    public int getItemPosition(Object object) {
+        // POSITION_NONE makes it possible to reload the PagerAdapter
+        return POSITION_NONE;
+    }
+
+    @Override
     public int getCount() {
-        return 3;
+        if (AppData.getInstance().getCurrentUser().isRegisteredUser())
+            return 3;
+        else
+            return 1;
     }
 
     @Override

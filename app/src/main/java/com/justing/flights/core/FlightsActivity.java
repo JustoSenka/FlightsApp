@@ -1,6 +1,5 @@
 package com.justing.flights.core;
 
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +19,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.SortedSet;
 
-public class FlightsActivity extends AppCompatActivity {
+public class FlightsActivity extends AppCompatActivity implements FlightInfoFragment.FlightPurchaseListener{
 
     public static final String KEY_DATE_FROM = "KEY_DATE_FROM";
     public static final String KEY_DATE_TILL = "KEY_DATE_TILL";
@@ -51,7 +50,8 @@ public class FlightsActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putLong(FlightInfoFragment.KEY_FLIGHT_ID, flightId);
 
-                if (!isAlreadyBookedFlight(flightId)){
+                Toast.makeText(getBaseContext(), !isAlreadyBookedFlight(flightId) + " " + AppData.getInstance().getCurrentUser().isRegisteredUser(), Toast.LENGTH_SHORT).show();
+                if (!isAlreadyBookedFlight(flightId) && AppData.getInstance().getCurrentUser().isRegisteredUser()){
                     bundle.putBoolean(FlightInfoFragment.KEY_PURCHASE_ENABLED, true);
                 }
 
@@ -76,14 +76,15 @@ public class FlightsActivity extends AppCompatActivity {
 
     private boolean isAlreadyBookedFlight(final long flightId){
 
-        SortedSet<Flight> set = AppData.getInstance().getFilteredFlights(new Predicate<Flight>() {
+        SortedSet<Flight> set = AppData.getInstance().getFilteredFlights(
+                AppData.getInstance().getCurrentUser().getMyFlights(), new Predicate<Flight>() {
             @Override
             public boolean apply(Flight flight) {
                 return flightId == flight.getId();
             }
         });
 
-        return set.size() >= 0;
+        return set.size() >= 1;
     }
 
     private void readSearchArgs(Bundle args) {
@@ -105,7 +106,7 @@ public class FlightsActivity extends AppCompatActivity {
 
     private Flight[] getFilteredDataWithArgs() {
         Flight[] flights = new Flight[0];
-        flights = AppData.getInstance().getFilteredFlights(new Predicate<Flight>() {
+        flights = AppData.getInstance().getFilteredAvailableFlights(new Predicate<Flight>() {
             @Override
             public boolean apply(Flight f) {
                 if (!f.getCityFrom().equals(cityFrom) && !cityFrom.equals(getString(R.string.any))) return false;
@@ -118,5 +119,11 @@ public class FlightsActivity extends AppCompatActivity {
         }).toArray(flights);
 
         return flights;
+    }
+
+    @Override
+    public void onFlightPurchase(Flight flight) {
+        AppData.getInstance().getCurrentUser().getMyFlights().add(flight);
+        Toast.makeText(this, "Successfully booked a flight", Toast.LENGTH_SHORT).show();
     }
 }

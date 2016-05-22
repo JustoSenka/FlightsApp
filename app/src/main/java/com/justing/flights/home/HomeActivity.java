@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.justing.flights.R;
 import com.justing.flights.core.FlightsActivity;
@@ -55,6 +56,11 @@ public class HomeActivity extends AppCompatActivity implements DatePickerFragmen
         readAvailableFlights();
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        mViewPager.getAdapter().notifyDataSetChanged();
+    }
 
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
@@ -94,7 +100,7 @@ public class HomeActivity extends AppCompatActivity implements DatePickerFragmen
 
 
 
-    void readAvailableFlights(){
+    private void readAvailableFlights(){
 
         // TODO: Test data here now, replace with db (or don't?)
 

@@ -7,9 +7,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.justing.flights.home.HomeActivity;
 import com.justing.flights.R;
+import com.justing.flights.objects.AppData;
+import com.justing.flights.objects.User;
+import com.justing.flights.utils.DatabaseHandler;
 import com.justing.flights.utils.DateFormatter;
 
 import java.text.ParseException;
@@ -17,11 +21,8 @@ import java.util.Date;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    public static String EMAIL_KEY = "EMAIL_KEY";
-
     private Button register;
     private EditText emailEdit, firstNameEdit, lastNameEdit, dateEdit, passEdit, passRepeatEdit;
-    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,6 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (isDataCorrect()){
                     Intent i = new Intent(getBaseContext(), HomeActivity.class);
-                    i.putExtra(EMAIL_KEY, email);
                     startActivity(i);
 
                     overridePendingTransition(R.anim.activity_slide_in, R.anim.activity_slide_out);
@@ -75,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         // Store values at the time of the login attempt.
-        email = emailEdit.getText().toString();
+        String email = emailEdit.getText().toString();
         String firstName = firstNameEdit.getText().toString();
         String lastName = lastNameEdit.getText().toString();
         String pass = passEdit.getText().toString();
@@ -103,6 +103,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerUser(String email, String firstName, String lastName, Date birthDate, String pass){
-        // TODO: write to db user credentials
+        DatabaseHandler db = new DatabaseHandler(this);
+        User u = new User(email, pass, firstName, lastName, birthDate);
+        AppData.getInstance().setCurrentUser(u);
+        db.addUser(u);
+        Toast.makeText(this, "Logged in as: " + u.getFirstName() + " " + u.getLastName(), Toast.LENGTH_SHORT).show();
     }
 }

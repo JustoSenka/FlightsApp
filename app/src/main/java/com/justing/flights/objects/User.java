@@ -9,6 +9,7 @@ import java.util.TreeSet;
  */
 public class User {
 
+    private long id;
     private String firstName, lastName, password, email;
     private Date birthDate;
 
@@ -18,11 +19,16 @@ public class User {
         this(null, null, null, null, null);
     }
 
-    public User(String firstName, String lastName, String password, String email, Date birthDate) {
-        this(firstName, lastName, password, email, birthDate, new TreeSet<Flight>());
+    public User(String email, String password, String firstName, String lastName, Date birthDate) {
+        this(-1, email, password, firstName, lastName, birthDate, new TreeSet<Flight>());
     }
 
-    public User(String firstName, String lastName, String password, String email, Date birthDate, SortedSet<Flight> myFlights) {
+    public User(long id, String email, String password, String firstName, String lastName, Date birthDate){
+        this(id, email, password, firstName, lastName, birthDate, new TreeSet<Flight>());
+    }
+
+    public User(long id, String email, String password, String firstName, String lastName, Date birthDate, SortedSet<Flight> myFlights) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;

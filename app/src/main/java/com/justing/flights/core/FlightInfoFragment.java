@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,9 +43,7 @@ public class FlightInfoFragment extends DialogFragment {
         getDialog().setTitle(getString(R.string.flight_info));
 
         final Bundle args = getArguments();
-
-        Flight f = AppData.getInstance().getFlightById(args.getLong(KEY_FLIGHT_ID));
-
+        final Flight f = AppData.getInstance().getFlightById(args.getLong(KEY_FLIGHT_ID));
         view.findViewById(R.id.info_purchase_button).setEnabled(args.getBoolean(KEY_PURCHASE_ENABLED, false));
 
         ((TextView) view.findViewById(R.id.info_flight_arrival)).setText(getString(R.string.flight_arrival) + ": " + DateFormatter.getFull(f.getArrivalTime()));
@@ -53,6 +52,18 @@ public class FlightInfoFragment extends DialogFragment {
         ((TextView) view.findViewById(R.id.info_flight_from)).setText(getString(R.string.flight_from) + ": " + f.getCityFrom());
         ((TextView) view.findViewById(R.id.info_flight_to)).setText(getString(R.string.flight_to) + ": " + f.getCityTo());
         ((TextView) view.findViewById(R.id.info_price)).setText(getString(R.string.price, f.getTicketPrice()));
+
+        final Fragment _this = this;
+
+        view.findViewById(R.id.info_purchase_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null){
+                    mListener.onFlightPurchase(f);
+                }
+                getActivity().getSupportFragmentManager().beginTransaction().remove(_this).commit();
+            }
+        });
 
         return view;
     }
@@ -67,6 +78,6 @@ public class FlightInfoFragment extends DialogFragment {
     }
 
     public interface FlightPurchaseListener {
-        void onFlightPurchase(Bundle args, Date date);
+        void onFlightPurchase(Flight flight);
     }
 }

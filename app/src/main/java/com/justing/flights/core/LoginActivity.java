@@ -12,11 +12,15 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.justing.flights.home.HomeActivity;
 import com.justing.flights.R;
+import com.justing.flights.objects.AppData;
+import com.justing.flights.objects.User;
 import com.justing.flights.social.FacebookController;
 import com.justing.flights.social.GoogleController;
+import com.justing.flights.utils.DatabaseHandler;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -110,8 +114,25 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean checkCredentials(String email, String pass){
-        // TODO: check the db, return true if success, else false
-        return true;
+
+        DatabaseHandler db = new DatabaseHandler(this);
+        User u = db.getUser(email);
+
+        if (u == null){
+            mEmailView.setError(getString(R.string.error_no_such_email));
+            mEmailView.requestFocus();
+        }
+        else if (!u.getPassword().equals(pass)){
+            mPasswordView.setError(getString(R.string.error_incorrect_password));
+            mPasswordView.requestFocus();
+        }
+        else {
+            AppData.getInstance().setCurrentUser(u);
+            Toast.makeText(this, "Logged in as: " + u.getFirstName() + " " + u.getLastName(), Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        return false;
     }
 }
 
